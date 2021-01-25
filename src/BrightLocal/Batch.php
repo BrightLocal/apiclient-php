@@ -2,63 +2,70 @@
 
 namespace BrightLocal;
 
-use Exception;
+use BrightLocal\Exceptions\BatchAddJobException;
+use BrightLocal\Exceptions\BatchCommitException;
+use BrightLocal\Exceptions\BatchCreateException;
 
 class Batch {
 
     protected Api $api;
 
+    protected int $batchId;
+
     public function __construct(Api $api) {
         $this->api = $api;
     }
 
-    /**
-     * @param bool $stopOnJobError
-     * @param string|null $callBackUrl
-     * @return bool|int
-     * @throws Exception
-     */
-    public function create(bool $stopOnJobError = false, ?string $callBackUrl = null) {
+    public function setId(int $batchId) {
+        $this->batchId = $batchId;
+    }
+
+    public function getId(): int {
+        return $this->batchId;
+    }
+
+    public function create(bool $stopOnJobError = false, ?string $callBackUrl = null): Batch {
         $params = ['stop-on-job-error' => (int) $stopOnJobError];
         if (!empty($callBackUrl)) {
             $params['callback'] = $callBackUrl;
         }
-        $result = $this->api->call('/v4/batch', $params);
-        return $result['success'] ? $result['batch-id'] : false;
+        $response = $this->api->post('/v4/batch', $params);
+        if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
+            throw new BatchCreateException(sprintf('Batch not created. Errors:%s', print_r($response->getResult()['errors'], true)));
+        }
+        $this->setId((int) $response->getResult()['batch-id']);
+        return $this;
     }
 
-    /**
-     * @param int $batchId
-     * @return bool
-     * @throws Exception
-     */
-    public function commit(int $batchId): bool {
-        $result = $this->api->call('/v4/batch', [
-            'batch-id' => $batchId
-        ], Methods::PUT);
-        return $result['success'];
+    public function commit(): bool {
+        $response = $this->api->put('/v4/batch', [
+            'batch-id' => $this->batchId
+        ]);
+        if (!$response->isSuccess()) {
+            throw new BatchCommitException(sprintf('Batch not commited. Errors:%s', print_r($response->getResult()['errors'], true)));
+        }
+        return $response->isSuccess();
     }
 
-    /**
-     * @param int $batchId
-     * @return array
-     * @throws Exception
-     */
-    public function getResults(int $batchId): array {
-        return $this->api->call('/v4/batch', [
-            'batch-id' => $batchId
-        ], Methods::GET);
+    public function addJob(string $resource, array $params = []): Response {
+        $params['batch-id'] = $this->batchId;
+        $response = $this->api->post($resource, $params);
+        if(!$response->isSuccess()){
+            throw new BatchAddJobException(sprintf('Job not added to the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+        }
+        return $response;
     }
 
-    /**
-     * @param int $batchId
-     * @return bool
-     * @throws Exception
-     */
-    public function delete(int $batchId): bool {
-        $results = $this->api->call('/v4/batch', array(
-            'batch-id' => $batchId
-        ), Methods::DELETE);
-        return $results['success'];
+    public function getResults(): Response {
+        return $this->api->get('/v4/batch', [
+            'batch-id' => $this->batchId
+        ]);
+    }
+
+    public function delete(): bool {
+        $results = $this->api->delete('/v4/batch', [
+            'batch-id' => $this->batchId
+        ]);
+        return $results->isSuccess();
     }
 }

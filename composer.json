@@ -1,12 +1,12 @@
 {
   "name": "brightlocal/apiclient-php",
-  "description": "BrightLocal API wrapper and examples",
+  "description": "BrightLocal API Client",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
-      "name": "Ed Eliot",
-      "email": "ed@brightlocal.com"
+      "name": "BrightLocal",
+      "email": "contact@brightlocal.com"
     }
   ],
   "require": {
