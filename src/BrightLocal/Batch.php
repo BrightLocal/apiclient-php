@@ -42,7 +42,7 @@ class Batch {
             'batch-id' => $this->batchId
         ]);
         if (!$response->isSuccess()) {
-            throw new BatchCommitException(sprintf('Batch not commited. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchCommitException(sprintf('An error occurred and we aren\'t able to commit the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
         }
         return $response->isSuccess();
     }
