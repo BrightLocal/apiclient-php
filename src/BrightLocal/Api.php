@@ -49,20 +49,20 @@ class Api {
         return $response;
     }
 
-    public function get(string $method, array $params = []): Response {
-        return $this->call($method, $params, Methods::GET);
+    public function get(string $resource, array $params = []): Response {
+        return $this->call($resource, $params, Methods::GET);
     }
 
-    public function post(string $method, array $params = []): Response {
-        return $this->call($method, $params);
+    public function post(string $resource, array $params = []): Response {
+        return $this->call($resource, $params);
     }
 
-    public function put(string $method, array $params = []): Response {
-        return $this->call($method, $params, Methods::PUT);
+    public function put(string $resource, array $params = []): Response {
+        return $this->call($resource, $params, Methods::PUT);
     }
 
-    public function delete(string $method, array $params = []): Response {
-        return $this->call($method, $params, Methods::DELETE);
+    public function delete(string $resource, array $params = []): Response {
+        return $this->call($resource, $params, Methods::DELETE);
     }
 
     private function getOptions(string $httpMethod, array $params): array {
