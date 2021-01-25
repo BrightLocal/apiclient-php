@@ -1,0 +1,21 @@
+{
+  "name": "brightlocal/apiclient-php",
+  "description": "BrightLocal API wrapper and examples",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Ed Eliot",
+      "email": "ed@brightlocal.com"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.2",
+    "php": "^7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}
