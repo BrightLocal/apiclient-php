@@ -44,7 +44,7 @@ class Batch {
      * @return array
      * @throws Exception
      */
-    public function get_results(int $batchId): array {
+    public function getResults(int $batchId): array {
         return $this->api->call('/v4/batch', [
             'batch-id' => $batchId
         ], Methods::GET);

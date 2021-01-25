@@ -4,11 +4,11 @@ require '../../vendor/autoload.php';
 
 use BrightLocal\Api;
 
-$directories = ['google', 'citysearch', 'dexknows', 'kudzu', 'manta'];
+$directories = ['google', 'citysearch', 'dexknows'];
 // setup API wrappers
 $api = new Api(API_KEY, API_SECRET, API_ENDPOINT);
 // Step 1: Create a new batch
-$batchId = $api->create_batch();
+$batchId = $api->createBatch();
 if (!is_int($batchId)) {
     printf('Batch not created!%s', PHP_EOL);
     exit;
@@ -31,7 +31,7 @@ foreach ($directories as $directory) {
     }
 }
 // Step 3: Commit batch (to signal all jobs added, processing starts)
-$success = $api->commit_batch($batchId);
+$success = $api->commitBatch($batchId);
 if (!$success) {
     echo 'Can not commit the batch.' . PHP_EOL;
     exit;
@@ -39,7 +39,7 @@ if (!$success) {
 printf('Batch committed successfully, waiting results.%s',  PHP_EOL);
 do {
     sleep(5);
-    $response = $api->get_batch_results($batchId);
+    $response = $api->getBatchResults($batchId);
 } while (!in_array($response['status'], ['Stopped', 'Finished']));
 print_r($response);
 
