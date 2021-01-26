@@ -31,6 +31,6 @@ printf('Batch committed successfully, awaiting results.%s', PHP_EOL);
 do {
     sleep(5);
     $response = $batch->getResults();
-} while (!in_array($response->getResult()['status'], ['Stopped', 'Finished']));
+} while (!in_array($response->getResult()['status'], ['Stopped', 'Finished'], true));
 print_r($response->getResult());
 

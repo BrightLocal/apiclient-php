@@ -1,7 +1,7 @@
 <?php
 namespace BrightLocal;
 
-class Response {
+class BatchResponse {
 
     protected int $statusCode = 0;
     protected array $result = [];

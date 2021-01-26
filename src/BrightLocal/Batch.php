@@ -4,6 +4,7 @@ namespace BrightLocal;
 use BrightLocal\Exceptions\BatchAddJobException;
 use BrightLocal\Exceptions\BatchCommitException;
 use BrightLocal\Exceptions\BatchCreateException;
+use BrightLocal\Exceptions\BatchDeleteException;
 
 class Batch {
 
@@ -54,7 +55,7 @@ class Batch {
     /**
      * @throws BatchAddJobException
      */
-    public function addJob(string $resource, array $params = []): Response {
+    public function addJob(string $resource, array $params = []): BatchResponse {
         $params['batch-id'] = $this->batchId;
         $response = $this->api->post($resource, $params);
         if (!$response->isSuccess()) {
@@ -63,16 +64,22 @@ class Batch {
         return $response;
     }
 
-    public function getResults(): Response {
+    /**
+     * @throws BatchDeleteException
+     */
+    public function delete(): bool {
+        $response = $this->api->delete('/v4/batch', [
+            'batch-id' => $this->batchId
+        ]);
+        if (!$response->isSuccess()) {
+            throw new BatchDeleteException(sprintf('An error occurred and we weren\'t able to delete the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+        }
+        return $response->isSuccess();
+    }
+
+    public function getResults(): BatchResponse {
         return $this->api->get('/v4/batch', [
             'batch-id' => $this->batchId
         ]);
-    }
-
-    public function delete(): bool {
-        $results = $this->api->delete('/v4/batch', [
-            'batch-id' => $this->batchId
-        ]);
-        return $results->isSuccess();
     }
 }
