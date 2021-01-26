@@ -1,8 +1,6 @@
 <?php
 namespace BrightLocal\Exceptions;
 
-use Exception;
-
-class BatchCreateException extends Exception {
+class BatchCreateException extends GeneralBatchException {
 
 }

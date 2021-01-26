@@ -22,19 +22,19 @@ class Api {
         $this->apiSecret = $apiSecret;
     }
 
-    public function get(string $resource, array $params = []): BatchResponse {
+    public function get(string $resource, array $params = []): ApiResponse {
         return $this->call($resource, $params, Methods::GET);
     }
 
-    public function post(string $resource, array $params = []): BatchResponse {
+    public function post(string $resource, array $params = []): ApiResponse {
         return $this->call($resource, $params);
     }
 
-    public function put(string $resource, array $params = []): BatchResponse {
+    public function put(string $resource, array $params = []): ApiResponse {
         return $this->call($resource, $params, Methods::PUT);
     }
 
-    public function delete(string $resource, array $params = []): BatchResponse {
+    public function delete(string $resource, array $params = []): ApiResponse {
         return $this->call($resource, $params, Methods::DELETE);
     }
 
@@ -42,7 +42,7 @@ class Api {
         return (new Batch($this))->create($stopOnJobError, $callbackUrl);
     }
 
-    private function call(string $resource, array $params = [], string $httpMethod = Methods::POST): BatchResponse {
+    private function call(string $resource, array $params = [], string $httpMethod = Methods::POST): ApiResponse {
         $resource = str_replace('/seo-tools/api', '', $resource);
         // some methods only require api key but there's no harm in also sending
         // sig and expires to those methods
@@ -53,7 +53,7 @@ class Api {
         } catch (RequestException $e) {
             $result = $e->getResponse();
         }
-        $response = new BatchResponse($result->getStatusCode(), Utils::jsonDecode($result->getBody()
+        $response = new ApiResponse($result->getStatusCode(), Utils::jsonDecode($result->getBody()
             ->getContents(), true));
         $result->getBody()->close();
         return $response;

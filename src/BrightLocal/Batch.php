@@ -33,7 +33,7 @@ class Batch {
         }
         $response = $this->api->post('/v4/batch', $params);
         if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
-            throw new BatchCreateException(sprintf('An error occurred and we were unable to create the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchCreateException('An error occurred and we were unable to create the batch. ', null, null, $response->getResult()['errors']);
         }
         $this->setId((int) $response->getResult()['batch-id']);
         return $this;
@@ -47,7 +47,7 @@ class Batch {
             'batch-id' => $this->batchId
         ]);
         if (!$response->isSuccess()) {
-            throw new BatchCommitException(sprintf('An error occurred and we aren\'t able to commit the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchCommitException('An error occurred and we aren\'t able to commit the batch.', null, null, $response->getResult()['errors']);
         }
         return $response->isSuccess();
     }
@@ -55,11 +55,11 @@ class Batch {
     /**
      * @throws BatchAddJobException
      */
-    public function addJob(string $resource, array $params = []): BatchResponse {
+    public function addJob(string $resource, array $params = []): ApiResponse {
         $params['batch-id'] = $this->batchId;
         $response = $this->api->post($resource, $params);
         if (!$response->isSuccess()) {
-            throw new BatchAddJobException(sprintf('An error occurred and we weren\'t able to add the job to the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchAddJobException('An error occurred and we weren\'t able to add the job to the batch.', null, null, $response->getResult()['errors']);
         }
         return $response;
     }
@@ -72,12 +72,12 @@ class Batch {
             'batch-id' => $this->batchId
         ]);
         if (!$response->isSuccess()) {
-            throw new BatchDeleteException(sprintf('An error occurred and we weren\'t able to delete the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchDeleteException('An error occurred and we weren\'t able to delete the batch.', null, null, $response->getResult()['errors']);
         }
         return $response->isSuccess();
     }
 
-    public function getResults(): BatchResponse {
+    public function getResults(): ApiResponse {
         return $this->api->get('/v4/batch', [
             'batch-id' => $this->batchId
         ]);
