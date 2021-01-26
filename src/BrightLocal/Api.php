@@ -43,7 +43,7 @@ class Api {
     }
 
     public function getBatch(int $batchId): Batch {
-        return (new Batch($this))->getBatch($batchId);
+        return new Batch($this, $batchId);
     }
 
     private function call(string $resource, array $params = [], string $httpMethod = Methods::POST): ApiResponse {

@@ -10,19 +10,15 @@ use BrightLocal\Exceptions\BatchNotFoundException;
 class Batch {
 
     private Api $api;
-    private int $batchId;
+    private ?int $batchId;
 
-    public function __construct(Api $api) {
+    public function __construct(Api $api, ?int $batchId = null) {
         $this->api = $api;
+        $this->batchId = $batchId;
     }
 
     public function getId(): int {
         return $this->batchId;
-    }
-
-    public function getBatch(int $batchId): Batch {
-        $this->batchId = $batchId;
-        return $this;
     }
 
     /**
@@ -79,6 +75,9 @@ class Batch {
         return $response->isSuccess();
     }
 
+    /**
+     * @throws BatchDeleteException
+     */
     public function getResults(): ApiResponse {
         $response = $this->api->get('/v4/batch', [
             'batch-id' => $this->batchId
