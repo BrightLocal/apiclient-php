@@ -3,7 +3,6 @@ namespace BrightLocal;
 
 use BrightLocal\Exceptions\BatchAddJobException;
 use BrightLocal\Exceptions\BatchCommitException;
-use BrightLocal\Exceptions\BatchCreateException;
 use BrightLocal\Exceptions\BatchDeleteException;
 use BrightLocal\Exceptions\BatchNotFoundException;
 
@@ -21,21 +20,6 @@ class Batch {
         return $this->batchId;
     }
 
-    /**
-     * @throws BatchCreateException
-     */
-    public function create(bool $stopOnJobError = false, ?string $callbackUrl = null): Batch {
-        $params = ['stop-on-job-error' => (int) $stopOnJobError];
-        if (!empty($callbackUrl)) {
-            $params['callback'] = $callbackUrl;
-        }
-        $response = $this->api->post('/v4/batch', $params);
-        if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
-            throw new BatchCreateException('An error occurred and we weren\'t able to create the batch. ', null, null, $response->getResult()['errors']);
-        }
-        $this->batchId = (int) $response->getResult()['batch-id'];
-        return $this;
-    }
 
     /**
      * @throws BatchCommitException

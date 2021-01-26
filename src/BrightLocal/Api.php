@@ -1,6 +1,7 @@
 <?php
 namespace BrightLocal;
 
+use BrightLocal\Exceptions\BatchCreateException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Utils;
@@ -38,8 +39,19 @@ class Api {
         return $this->call($resource, $params, Methods::DELETE);
     }
 
+    /**
+     * @throws BatchCreateException
+     */
     public function createBatch(bool $stopOnJobError = false, ?string $callbackUrl = null): Batch {
-        return (new Batch($this))->create($stopOnJobError, $callbackUrl);
+        $params = ['stop-on-job-error' => (int) $stopOnJobError];
+        if (!empty($callbackUrl)) {
+            $params['callback'] = $callbackUrl;
+        }
+        $response = $this->post('/v4/batch', $params);
+        if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
+            throw new BatchCreateException('An error occurred and we weren\'t able to create the batch. ', null, null, $response->getResult()['errors']);
+        }
+        return (new Batch($this, (int) $response->getResult()['batch-id']));
     }
 
     public function getBatch(int $batchId): Batch {
