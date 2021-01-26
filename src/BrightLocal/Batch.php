@@ -5,6 +5,7 @@ use BrightLocal\Exceptions\BatchAddJobException;
 use BrightLocal\Exceptions\BatchCommitException;
 use BrightLocal\Exceptions\BatchCreateException;
 use BrightLocal\Exceptions\BatchDeleteException;
+use BrightLocal\Exceptions\BatchNotFoundException;
 
 class Batch {
 
@@ -36,7 +37,7 @@ class Batch {
         if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
             throw new BatchCreateException('An error occurred and we weren\'t able to create the batch. ', null, null, $response->getResult()['errors']);
         }
-        $this->setId((int) $response->getResult()['batch-id']);
+        $this->batchId = (int) $response->getResult()['batch-id'];
         return $this;
     }
 
@@ -79,8 +80,12 @@ class Batch {
     }
 
     public function getResults(): ApiResponse {
-        return $this->api->get('/v4/batch', [
+        $response = $this->api->get('/v4/batch', [
             'batch-id' => $this->batchId
         ]);
+        if (!$response->isSuccess()) {
+            throw new BatchNotFoundException('An error occurred and we weren\'t able to find the batch.', null, null, $response->getResult()['errors']);
+        }
+        return $response;
     }
 }
