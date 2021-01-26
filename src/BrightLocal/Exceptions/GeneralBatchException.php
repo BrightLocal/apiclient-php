@@ -1,5 +1,4 @@
 <?php
-
 namespace BrightLocal\Exceptions;
 
 use Exception;
