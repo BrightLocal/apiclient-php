@@ -34,7 +34,7 @@ class Batch {
         }
         $response = $this->api->post('/v4/batch', $params);
         if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
-            throw new BatchCreateException('An error occurred and we were unable to create the batch. ', null, null, $response->getResult()['errors']);
+            throw new BatchCreateException('An error occurred and we weren\'t able to create the batch. ', null, null, $response->getResult()['errors']);
         }
         $this->setId((int) $response->getResult()['batch-id']);
         return $this;
