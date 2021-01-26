@@ -42,6 +42,10 @@ class Api {
         return (new Batch($this))->create($stopOnJobError, $callbackUrl);
     }
 
+    public function getBatch(int $batchId): Batch {
+        return (new Batch($this))->getBatch($batchId);
+    }
+
     private function call(string $resource, array $params = [], string $httpMethod = Methods::POST): ApiResponse {
         $resource = str_replace('/seo-tools/api', '', $resource);
         // some methods only require api key but there's no harm in also sending

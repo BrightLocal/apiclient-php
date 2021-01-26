@@ -15,12 +15,13 @@ class Batch {
         $this->api = $api;
     }
 
-    public function setId(int $batchId) {
-        $this->batchId = $batchId;
-    }
-
     public function getId(): int {
         return $this->batchId;
+    }
+
+    public function getBatch(int $batchId): Batch {
+        $this->batchId = $batchId;
+        return $this;
     }
 
     /**

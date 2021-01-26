@@ -12,7 +12,7 @@ Step 1: Add to the require section of your composer.json file.
 
 ```javascript
 "require": {
-    "brightlocal/api": "0.*"
+    "brightlocal/apiclient-php": "0.*"
 }
 ```
 
@@ -27,33 +27,35 @@ Examples
 
 ```php
 <?php
-require 'BrightLocal/Api.php';
+require 'vendor/autoload.php';
 
-$api = new BrightLocal\Api('YOUR_API_KEY', 'YOUR_API_SECRET');
+use BrightLocal\Api;
+// setup API wrapper
+$api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 
 // get a list of clients
-print_r($api->call('/v2/clients/get-all'));
+print_r($api->get('/v2/clients/get-all'));
 
 // get a client
-print_r($api->call('/v2/clients/get', array(
+print_r($api->get('/v2/clients/get', [
     'client-id' => 1059
-)));
+]));
 
 // get LSRC report list
-print_r($api->call('/v2/lsrc/get-all'));
+print_r($api->get('/v2/lsrc/get-all'));
 
 // get LSRC report
-print_r($api->call('/v2/lsrc/get', array(
+print_r($api->get('/v2/lsrc/get', [
     'campaign-id' => 50
-)));
+]));
 
 // get CT report list
-print_r($api->call('/v2/ct/get-all'));
+print_r($api->get('/v2/ct/get-all'));
 
 // get a CT report
-print_r($api->call('/v2/ct/get', array(
+print_r($api->get('/v2/ct/get', [
     'report-id' => 259
-)));
+]));
 ```
 
 Example Scripts
