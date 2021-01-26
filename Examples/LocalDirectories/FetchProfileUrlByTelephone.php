@@ -4,7 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 use BrightLocal\Exceptions\BatchAddJobException;
 
-$directories = ['google', 'citysearch', 'dexknows'];
+$directories = ['google', 'yelp', 'yahoo'];
 // setup API wrapper
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 // Step 1: Create a new batch
@@ -15,10 +15,8 @@ foreach ($directories as $directory) {
     try {
         $response = $batch->addJob('/v4/ld/fetch-profile-url', [
             'local-directory' => $directory,
-            'business-names'  => 'Eleven Madison Park',
-            'country'         => 'USA',
-            'city'            => 'New York',
-            'postcode'        => '10010'
+            'telephone'       => '+1 212-554-1515',
+            'search-type'     => 'search-by-phone',
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {
@@ -33,4 +31,3 @@ do {
     $response = $batch->getResults();
 } while (!in_array($response->getResult()['status'], ['Stopped', 'Finished'], true));
 print_r($response->getResult());
-
