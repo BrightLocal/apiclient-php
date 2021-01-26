@@ -1,5 +1,4 @@
 <?php
-
 namespace BrightLocal;
 
 use BrightLocal\Exceptions\BatchAddJobException;
@@ -8,9 +7,8 @@ use BrightLocal\Exceptions\BatchCreateException;
 
 class Batch {
 
-    protected Api $api;
-
-    protected int $batchId;
+    private Api $api;
+    private int $batchId;
 
     public function __construct(Api $api) {
         $this->api = $api;
@@ -24,19 +22,25 @@ class Batch {
         return $this->batchId;
     }
 
-    public function create(bool $stopOnJobError = false, ?string $callBackUrl = null): Batch {
+    /**
+     * @throws BatchCreateException
+     */
+    public function create(bool $stopOnJobError = false, ?string $callbackUrl = null): Batch {
         $params = ['stop-on-job-error' => (int) $stopOnJobError];
-        if (!empty($callBackUrl)) {
-            $params['callback'] = $callBackUrl;
+        if (!empty($callbackUrl)) {
+            $params['callback'] = $callbackUrl;
         }
         $response = $this->api->post('/v4/batch', $params);
         if (!$response->isSuccess() || (isset($response->getResult()['batch-id']) && !is_int($response->getResult()['batch-id']))) {
-            throw new BatchCreateException(sprintf('Batch not created. Errors:%s', print_r($response->getResult()['errors'], true)));
+            throw new BatchCreateException(sprintf('An error occurred and we were unable to create the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
         }
         $this->setId((int) $response->getResult()['batch-id']);
         return $this;
     }
 
+    /**
+     * @throws BatchCommitException
+     */
     public function commit(): bool {
         $response = $this->api->put('/v4/batch', [
             'batch-id' => $this->batchId
@@ -47,11 +51,14 @@ class Batch {
         return $response->isSuccess();
     }
 
+    /**
+     * @throws BatchAddJobException
+     */
     public function addJob(string $resource, array $params = []): Response {
         $params['batch-id'] = $this->batchId;
         $response = $this->api->post($resource, $params);
-        if(!$response->isSuccess()){
-            throw new BatchAddJobException(sprintf('Job not added to the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
+        if (!$response->isSuccess()) {
+            throw new BatchAddJobException(sprintf('An error occurred and we weren\'t able to add the job to the batch. Errors:%s', print_r($response->getResult()['errors'], true)));
         }
         return $response;
     }

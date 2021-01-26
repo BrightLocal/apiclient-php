@@ -1,9 +1,8 @@
 <?php
-
 namespace BrightLocal\Exceptions;
 
 use Exception;
 
-class BatchAddJobException extends Exception{
+class BatchAddJobException extends Exception {
 
 }

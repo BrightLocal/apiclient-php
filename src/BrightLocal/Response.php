@@ -1,5 +1,4 @@
 <?php
-
 namespace BrightLocal;
 
 class Response {
@@ -24,6 +23,6 @@ class Response {
         if (isset($this->result['success'])) {
             return $this->result['success'];
         }
-        return in_array($this->statusCode, [200, 201]);
+        return in_array($this->statusCode, [200, 201], true);
     }
 }

@@ -6,8 +6,7 @@ use BrightLocal\Exceptions\BatchAddJobException;
 
 $directories = ['google', 'citysearch', 'dexknows'];
 // setup API wrapper
-//$api = new Api('1a3c2fa6735f089a2a1dd4fa11067807383bd08c', '5a0ae446a98a1');
-$api = new Api('112dec343c6dc9fe9517d40b728fb84724cd44a0', '5a0ae446a98a1', 'http://tools.local-brightlocal.com/seo-tools/api');
+$api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 // Step 1: Create a new batch
 $batch = $api->createBatch();
 printf('Created batch ID %d%s', $batch->getId(), PHP_EOL);
