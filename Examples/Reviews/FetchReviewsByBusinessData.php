@@ -4,10 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 use BrightLocal\Exceptions\BatchAddJobException;
 
-$directories = [
-    'https://local.google.com/place?id=2145618977980482902&use=srp&hl=en',
-    'https://www.yelp.com/biz/le-bernardin-new-york',
-];
+$directories = ['google', 'yahoo'];
 // setup API wrapper
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 // Step 1: Create a new batch
@@ -16,9 +13,14 @@ printf('Created batch ID %d%s', $batch->getId(), PHP_EOL);
 // Step 2: Add directory jobs to batch
 foreach ($directories as $directory) {
     try {
-        $response = $batch->addJob('/v4/ld/fetch-profile-details', [
-            'profile-url' => $directory,
-            'country'     => 'USA',
+        $response = $batch->addJob('/v4/ld/fetch-reviews-by-business-data', [
+            'local-directory' => $directory,
+            'business-names'  => 'Le Bernardin',
+            'country'         => 'USA',
+            'street-address'  => '155 W 51st St',
+            'city'            => 'New York',
+            'postcode'        => '10019',
+            'telephone'       => '(212) 554-1515',
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

@@ -6,6 +6,7 @@ use BrightLocal\Exceptions\BatchAddJobException;
 
 $directories = [
     'https://local.google.com/place?id=2145618977980482902&use=srp&hl=en',
+    'https://local.yahoo.com/info-27778787-le-bernardin-new-york',
     'https://www.yelp.com/biz/le-bernardin-new-york',
 ];
 // setup API wrapper
@@ -16,7 +17,7 @@ printf('Created batch ID %d%s', $batch->getId(), PHP_EOL);
 // Step 2: Add directory jobs to batch
 foreach ($directories as $directory) {
     try {
-        $response = $batch->addJob('/v4/ld/fetch-profile-details', [
+        $response = $batch->addJob('/v4/ld/fetch-reviews', [
             'profile-url' => $directory,
             'country'     => 'USA',
         ]);
