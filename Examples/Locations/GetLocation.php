@@ -3,7 +3,7 @@ require '../../vendor/autoload.php';
 
 use BrightLocal\Api;
 
-$clientId = 1;
+$locationId = 1;
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$response = $api->get("/v1/clients-and-locations/clients/$clientId");
+$response = $api->get('/v2/clients-and-locations/locations/' . $locationId);
 print_r($response->getResult());
