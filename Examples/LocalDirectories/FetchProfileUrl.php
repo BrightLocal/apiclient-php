@@ -18,7 +18,7 @@ foreach ($directories as $directory) {
             'business-names'  => 'La Bernardin\nBernardin Cafe\nBernardin restaraunt',
             'country'         => 'USA',
             'city'            => 'New York',
-            'postcode'        => '10019',
+            'postcode'        => '10019'
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

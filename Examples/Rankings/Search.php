@@ -32,7 +32,7 @@ $searches = [
         'google-location' => 'New York, NY',
         'search-term'     => 'restaurant 10019',
         'urls'            => json_encode(['le-bernardin.com']),
-        'business-names'  => json_encode(['Le Bernardin']),
+        'business-names'  => json_encode(['Le Bernardin'])
     ],
 ];
 foreach ($searches as $search) {

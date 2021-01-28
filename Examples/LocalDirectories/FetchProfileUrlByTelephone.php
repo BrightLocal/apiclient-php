@@ -16,7 +16,7 @@ foreach ($directories as $directory) {
         $response = $batch->addJob('/v4/ld/fetch-profile-url', [
             'local-directory' => $directory,
             'telephone'       => '+1 212-554-1515',
-            'search-type'     => 'search-by-phone',
+            'search-type'     => 'search-by-phone'
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

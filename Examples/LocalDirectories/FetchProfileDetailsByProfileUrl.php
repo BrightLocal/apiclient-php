@@ -18,7 +18,7 @@ foreach ($directories as $directory) {
     try {
         $response = $batch->addJob('/v4/ld/fetch-profile-details', [
             'profile-url' => $directory,
-            'country'     => 'USA',
+            'country'     => 'USA'
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

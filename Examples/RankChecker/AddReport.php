@@ -11,6 +11,6 @@ $response = $api->post($resource, [
     'schedule'          => 'Adhoc',
     'search-terms'      => 'Restaurant\nfood+nyc\ndelivery+midtown+manhattan',
     'website-addresses' => '["le-bernardin.com", "le-bernardin2.com"]',
-    'search-engines'    => 'google,google-mobile,google-local,bing,bing-local',
+    'search-engines'    => 'google,google-mobile,google-local,bing,bing-local'
 ]);
 print_r($response->getResult());

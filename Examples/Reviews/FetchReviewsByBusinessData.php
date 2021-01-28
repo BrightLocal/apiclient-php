@@ -20,7 +20,7 @@ foreach ($directories as $directory) {
             'street-address'  => '155 W 51st St',
             'city'            => 'New York',
             'postcode'        => '10019',
-            'telephone'       => '(212) 554-1515',
+            'telephone'       => '(212) 554-1515'
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

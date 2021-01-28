@@ -7,7 +7,7 @@ use BrightLocal\Exceptions\BatchAddJobException;
 $directories = [
     'https://local.google.com/place?id=2145618977980482902&use=srp&hl=en',
     'https://local.yahoo.com/info-27778787-le-bernardin-new-york',
-    'https://www.yelp.com/biz/le-bernardin-new-york',
+    'https://www.yelp.com/biz/le-bernardin-new-york'
 ];
 // setup API wrapper
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
@@ -19,7 +19,7 @@ foreach ($directories as $directory) {
     try {
         $response = $batch->addJob('/v4/ld/fetch-reviews', [
             'profile-url' => $directory,
-            'country'     => 'USA',
+            'country'     => 'USA'
         ]);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {

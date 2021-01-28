@@ -22,7 +22,7 @@ try {
         'state-code'       => 'NY',
         'telephone'        => '(212) 477-0777',
         'postcode'         => '10003',
-        'country'          => 'USA',
+        'country'          => 'USA'
     ]);
     printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
 } catch (BatchAddJobException $exception) {

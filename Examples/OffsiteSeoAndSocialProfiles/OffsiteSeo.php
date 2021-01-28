@@ -6,7 +6,7 @@ use BrightLocal\Exceptions\BatchAddJobException;
 
 $directories = [
     'http://www.gramercytavern.com/',
-    'https://bodegawinebar.com/',
+    'https://bodegawinebar.com/'
 ];
 // setup API wrapper
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');

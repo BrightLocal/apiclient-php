@@ -23,7 +23,7 @@ try {
         'google-location' => 'New York, NY',
         'search-terms'    => json_encode($searches),
         'urls'            => json_encode(['le-bernardin.com']),
-        'business-names'  => json_encode(['Le Bernardin']),
+        'business-names'  => json_encode(['Le Bernardin'])
     ]);
     printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
 } catch (BatchAddJobException $exception) {

@@ -3,8 +3,8 @@ require '../../vendor/autoload.php';
 
 use BrightLocal\Api;
 
-$batchId = 1;
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$batch = $api->getBatch($batchId);
-$response = $batch->getResults();
-print_r($response->getResult());
+$response = $api->put('/v4/lscu/run', [
+    'report-id' => 860
+]);
+var_dump($response->getResult());
