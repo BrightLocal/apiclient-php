@@ -3,7 +3,6 @@ require '../../vendor/autoload.php';
 
 use BrightLocal\Api;
 
-// setup API wrapper
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 // Step: Create a new batch
 $batch = $api->createBatch();
