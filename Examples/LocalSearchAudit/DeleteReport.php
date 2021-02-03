@@ -8,6 +8,6 @@ $response = $api->delete('/v4/lscu', [
     'report-id' => 860
 ]);
 var_dump($response->getResult());
-if (!empty($response->getResult()['success'])) {
-    echo 'Successfully deleted report.' . PHP_EOL;
+if (!empty($response->isSuccess())) {
+    echo 'Successfully deleted location.' . PHP_EOL;
 }
