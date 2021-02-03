@@ -9,4 +9,4 @@ $response = $api->post($resource, [
     'name'        => 'Le Bernardin',
     'company-url' => 'le-bernardin.com'
 ]);
-var_dump($response->getResult());
+print_r($response->getResult());
