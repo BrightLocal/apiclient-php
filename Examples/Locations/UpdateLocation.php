@@ -5,8 +5,7 @@ use BrightLocal\Api;
 
 $locationId = 1;
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v2/clients-and-locations/locations/' . $locationId;
-$response = $api->put($resource, [
+$response = $api->put('/v2/clients-and-locations/locations/' . $locationId, [
     'name'                 => 'Le Bernardin',
     'url'                  => 'le-bernardin.com',
     'location-reference'   => 'LE-BERNADIN-10019',

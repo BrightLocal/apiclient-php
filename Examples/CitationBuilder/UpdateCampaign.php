@@ -5,8 +5,7 @@ use BrightLocal\Api;
 
 $campaignId = 1;
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v4/cb/';
-$response = $api->put($resource . $campaignId, [
+$response = $api->put('/v4/cb/' . $campaignId, [
     'location_id'          => 1,
     'campaign_name'        => 'Le Bernardin Citation Builder',
     'business_name'        => 'Le Bernardin',
@@ -28,10 +27,9 @@ $response = $api->put($resource . $campaignId, [
         "visa",
         "paypal",
     ],
-    'social_profile_links' => '{"facebook":"https:\/\/en-gb.facebook.com\/brightlocal\/",
-    "twitter":"https:\/\/twitter.com\/bright_local",
-    "linkedin":"https:\/\/uk.linkedin.com\/company\/bright-local-seo",
-    "instagram":"",
-    "pinterest":"https:\/\/www.pinterest.co.uk\/brightlocal\/"}'
+    'social_profile_links' => [
+        "facebook" => "https://en-gb.facebook.com/bright_local/",
+        "twitter"  => "https://twitter.com/bright_local",
+    ],
 ]);
 print_r($response->getResult());

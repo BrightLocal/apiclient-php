@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v2/lsrc/add';
-$response = $api->post($resource, [
+$response = $api->post('/v2/lsrc/add', [
     'location-id'       => 1,
     'name'              => 'Le Bernardin',
     'schedule'          => 'Adhoc',

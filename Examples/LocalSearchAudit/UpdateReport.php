@@ -4,9 +4,8 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v4/lscu';
-$response = $api->put($resource, [
-    'location_id'               => 1,
+$response = $api->put('/v4/lscu', [
+    'location-id'               => 1,
     'report-id'                 => 1,
     'postcode'                  => '10019',
     'telephone'                 => '+1 212-554-1515',

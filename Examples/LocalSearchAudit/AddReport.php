@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v4/lscu';
-$response = $api->post($resource, [
+$response = $api->post('/v4/lscu', [
     'location_id'               => 1,
     'report-name'               => 'Sample Local Search Audit Report',
     'business-names'            => ["Le Bernardin"],

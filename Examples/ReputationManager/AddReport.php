@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v4/rf/add';
-$response = $api->post($resource, [
+$response = $api->post('/v4/rf/add', [
     'location-id'       => 1,
     'report-name'       => 'Le Bernardin',
     'business-name'     => 'Le Bernardin',
@@ -14,6 +13,20 @@ $response = $api->post($resource, [
     'address2'          => '',
     'city'              => 'New York',
     'postcode'          => '10019',
-    'country'           => 'USA' // USA only
+    'country'           => 'USA', // USA only
+    'directories'       => [
+        'yellowbot'   => [
+            'url'     => 'https://www.yellowbot.com/le-bernardin-new-york-ny.html',
+            'include' => true,
+        ],
+        'yellowpages' => [
+            'url'     => 'https://www.yellowpages.com/new-york-ny/mip/le-bernardin-9909153',
+            'include' => true,
+        ],
+        'yelp'        => [
+            'url'     => 'https://www.yelp.com/biz/le-bernardin-new-york',
+            'include' => true,
+        ],
+    ],
 ]);
 print_r($response->getResult());

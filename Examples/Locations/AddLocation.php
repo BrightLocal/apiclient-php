@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v2/clients-and-locations/locations/';
-$response = $api->post($resource, [
+$response = $api->post('/v2/clients-and-locations/locations/', [
     'name'                 => 'Le Bernardin',
     'location-reference'   => 'LE-BERNARDIN-10019',
     'url'                  => 'le-bernardin.com',

@@ -5,6 +5,5 @@ use BrightLocal\Api;
 
 $country = 'USA';
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v1/business-categories/';
-$response = $api->get($resource . $country);
+$response = $api->get('/v1/business-categories/' . $country);
 print_r($response->getResult());

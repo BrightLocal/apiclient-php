@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 use BrightLocal\Api;
 
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
-$resource = '/v2/lsrc/update';
-$response = $api->post($resource, [
+$response = $api->post('/v2/lsrc/update', [
     'location-id'       => 1,
     'campaign-id'       => 9907,
     'name'              => 'Le Bernardin',
