@@ -14,7 +14,7 @@ City’s top restaurant for food and service. Le Bernardin has earned seven Jame
 $api = new Api('<YOUR_API_KEY>', '<YOUR_API_SECRET>');
 $response = $api->post('/v4/cb/create', [
     'location_id'            => 1,
-    'campaign_name'          => 'Le Bernardin Citation Builder',
+    'campaign_name'          => 'Le Bernardin',
     'business_name'          => 'Le Bernardin',
     'website_address'        => 'le-bernardin.com',
     'campaign_country'       => 'USA',
@@ -102,11 +102,11 @@ $response = $api->post('/v4/cb/create', [
         ],
     ],
     'social_profile_links'   => [
-        "facebook"  => "https://en-gb.facebook.com/brightlocal/",
-        "twitter"   => "https://twitter.com/bright_local",
-        "linkedin"  => "https://uk.linkedin.com/company/bright-local-seo",
-        "instagram" => "",
-        "pinterest" => "https://www.pinterest.co.uk/brightlocal/"
+        'facebook'  => 'https://en-gb.facebook.com/brightlocal/',
+        'twitter'   => 'https://twitter.com/bright_local',
+        'linkedin'  => 'https://uk.linkedin.com/company/bright-local-seo',
+        'instagram' => '',
+        'pinterest' => 'https://www.pinterest.co.uk/brightlocal/',
     ],
     'white_label_profile_id' => 12
 ]);

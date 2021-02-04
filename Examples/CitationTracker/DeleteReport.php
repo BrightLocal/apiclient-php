@@ -8,6 +8,6 @@ $response = $api->post('/v2/ct/delete', [
     'report-id' => 682
 ]);
 var_dump($response->getResult());
-if (!empty($response->isSuccess())) {
+if ($response->isSuccess()) {
     echo 'Successfully deleted report.' . PHP_EOL;
 }

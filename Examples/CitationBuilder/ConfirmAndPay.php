@@ -9,11 +9,11 @@ $response = $api->post('/v2/cb/confirm-and-pay', [
     'package_id'        => 'cb15',
     'autoselect'        => 'N',
     'remove-duplicates' => 'Y',
-    'aggregators'       => json_encode(["foursquare"]),
+    'aggregators'       => json_encode(['foursquare']),
     'citations'         => json_encode([
-        "brownbook.net", "bing.com", "manta.com", "yell.com", "accessplace.com", "bizfo.co.uk",
-        "bizwiki.co.uk", "citylocal.co.uk", "cylex-uk.co.uk", "where2go.com", "yelp.co.uk", "scoot.co.uk",
-        "restaurants.co.uk", "opendi.co.uk", "misterwhat.co.uk"
+        'brownbook.net', 'bing.com', 'manta.com', 'yell.com', 'accessplace.com', 'bizfo.co.uk',
+        'bizwiki.co.uk', 'citylocal.co.uk', 'cylex-uk.co.uk', 'where2go.com', 'yelp.co.uk', 'scoot.co.uk',
+        'restaurants.co.uk', 'opendi.co.uk', 'misterwhat.co.uk'
     ]),
     'notes'             => 'Some very important notes'
 ]);
