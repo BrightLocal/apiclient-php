@@ -8,6 +8,6 @@ $response = $api->post('/v2/lsrc/delete', [
     'campaign-id' => 9907
 ]);
 var_dump($response->getResult());
-if (!empty($response->getResult()['success'])) {
+if ($response->isSuccess()) {
     echo 'Successfully deleted report.' . PHP_EOL;
 }

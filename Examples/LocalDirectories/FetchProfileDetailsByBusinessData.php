@@ -15,7 +15,7 @@ foreach ($directories as $directory) {
     try {
         $response = $batch->addJob('/v4/ld/fetch-profile-details-by-business-data', [
             'local-directory' => $directory,
-            'business-names'  => 'La Bernardin\nBernardin Cafe\nBernardin restaraunt',
+            'business-names'  => 'La Bernardin',
             'country'         => 'USA',
             'city'            => 'New York',
             'postcode'        => '10019'
