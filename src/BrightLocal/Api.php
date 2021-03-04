@@ -1,4 +1,5 @@
 <?php
+
 namespace BrightLocal;
 
 use BrightLocal\Exceptions\BatchCreateException;

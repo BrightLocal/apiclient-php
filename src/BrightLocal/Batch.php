@@ -1,10 +1,12 @@
 <?php
+
 namespace BrightLocal;
 
 use BrightLocal\Exceptions\BatchAddJobException;
 use BrightLocal\Exceptions\BatchCommitException;
 use BrightLocal\Exceptions\BatchDeleteException;
 use BrightLocal\Exceptions\BatchNotFoundException;
+use BrightLocal\Exceptions\BatchStopException;
 
 class Batch {
 
@@ -19,7 +21,6 @@ class Batch {
     public function getId(): int {
         return $this->batchId;
     }
-
 
     /**
      * @throws BatchCommitException
@@ -60,7 +61,20 @@ class Batch {
     }
 
     /**
-     * @throws BatchDeleteException
+     * @throws BatchStopException
+     */
+    public function stop(): bool {
+        $response = $this->api->put('/v4/batch/stop', [
+            'batch-id' => $this->batchId
+        ]);
+        if (!$response->isSuccess()) {
+            throw new BatchStopException('An error occurred and we weren\'t able to stop the batch.', null, null, $response->getResult()['errors']);
+        }
+        return $response->isSuccess();
+    }
+
+    /**
+     * @throws BatchNotFoundException
      */
     public function getResults(): ApiResponse {
         $response = $this->api->get('/v4/batch', [
