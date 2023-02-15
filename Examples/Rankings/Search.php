@@ -40,7 +40,7 @@ foreach ($searches as $search) {
         $response = $batch->addJob('/v4/rankings/search', $search);
         printf('Added job with ID %d%s', $response->getResult()['job-id'], PHP_EOL);
     } catch (BatchAddJobException $exception) {
-        printf('Error, job for search engine "%s" not added. Message: %s%s', $directory, $exception->getMessage(), PHP_EOL);
+        printf('Error, job for search engine "%s" not added. Message: %s%s', $searchEngine, $exception->getMessage(), PHP_EOL);
     }
 }
 // Commit batch (to indicate that all jobs have been added and that processing should start)
