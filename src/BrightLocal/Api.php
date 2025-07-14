@@ -18,7 +18,7 @@ class Api {
     private string $apiKey;
     private string $apiSecret;
 
-    public function __construct(string $apiKey, string $apiSecret, ?string $endpoint = null) {
+    public function __construct(string $apiKey, string $apiSecret = '', ?string $endpoint = null) {
         $this->endpoint = empty($endpoint) ? static::ENDPOINT : $endpoint;
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
