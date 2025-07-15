@@ -16,8 +16,16 @@ class Api {
 
     private string $endpoint;
     private string $apiKey;
+    /** @deprecated  */
     private string $apiSecret;
 
+    /**
+     * @param string $apiKey
+     * @param string $apiSecret [deprecated] This parameter is deprecated and will be removed in future versions.
+     * @param string|null $endpoint
+     *
+     * @deprecated The $apiSecret parameter is deprecated and will be removed in future versions.
+     */
     public function __construct(string $apiKey, string $apiSecret = '', ?string $endpoint = null) {
         $this->endpoint = empty($endpoint) ? static::ENDPOINT : $endpoint;
         $this->apiKey = $apiKey;
